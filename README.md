@@ -19,11 +19,6 @@ cargo run
 3
 ```
 
-#### Cargo'git-Dependencies:
-```shell
-       Shm
-```
-
 #### Directory-Tree:
 ```shell
 .
