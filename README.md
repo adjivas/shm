@@ -11,11 +11,11 @@ cargo build
 
 #### How to use:
 ```shell
-cargo run
+cargo run --example box
 1
-cargo run
+cargo run --example box
 2
-cargo run
+cargo run --example box
 3
 ```
 
@@ -25,7 +25,7 @@ cargo run
 |__ Cargo.toml
 |__ LICENSE
 |__ README.md
-|__ example/basic.rs
+|__ example/box.rs
 \__ src
     |__ ffi.rs
     |__ lib.rs
