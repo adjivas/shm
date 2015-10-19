@@ -7,10 +7,10 @@
 
 #[macro_use] extern crate shm;
 
-type Box = [i32; 80];
+type Map = [i32; 10];
 
 fn main () {
-    let size:usize = std::mem::size_of::<Box>();
+    let size:usize = std::mem::size_of::<Map>();
 
     if let Some(key) = ftok!() {
         if let Some(id) = match shmget! (
@@ -26,12 +26,16 @@ fn main () {
             ),
         } {
             if let Some(addr) = shmat!(id) {
-                let mut data: &mut Box = unsafe {
+                let map: &mut Map = unsafe {
                     std::mem::transmute(addr)
                 };
 
-                data[0] += 1;
-                println!("{:?}", data[0]);
+                loop {
+                    for x in map.iter() {
+                        print!("{} ", x);
+                    }
+                    println!("");
+                }
             }
         }
     }
