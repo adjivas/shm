@@ -77,3 +77,23 @@ macro_rules! shmdt {
         }
     });
 }
+
+#[macro_export]
+macro_rules! shmget_id {
+    ($key: expr, $size: expr) => ({
+        match shmget! (
+            $key,
+            0o0666 | shm::ffi::Ipc::CREAT as i32
+                   | shm::ffi::Ipc::EXCL as i32,
+            $size
+        ) {
+            Some(id) => Some(id),
+            None => shmget! (
+                $key,
+                0o0666,
+                $size
+            ),
+        }
+    });
+}
+

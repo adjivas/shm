@@ -13,18 +13,7 @@ fn main () {
     let size:usize = std::mem::size_of::<Map>();
 
     if let Some(key) = ftok!() {
-        if let Some(id) = match shmget! (
-            key,
-            0o0666 | shm::ffi::Ipc::CREAT as i32 | shm::ffi::Ipc::EXCL as i32,
-            size
-        ) {
-            Some(id) => Some(id),
-            None => shmget! (
-                key,
-                0o0666,
-                size
-            ),
-        } {
+        if let Some(id) = shmget_id!(key, size) {
             if let Some(addr) = shmat!(id) {
                 let map: &mut Map = unsafe {
                     std::mem::transmute(addr)
