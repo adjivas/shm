@@ -65,20 +65,6 @@ macro_rules! shmat {
 }
 
 #[macro_export]
-macro_rules! shmdt {
-    ($addr: expr) => ({
-        match unsafe {
-            shm::ffi::shmdt (
-                $addr
-            )
-        } {
-            -1 => false,
-            _ => true,
-        }
-    });
-}
-
-#[macro_export]
 macro_rules! shmget_id {
     ($key: expr, $size: expr) => ({
         match shmget! (
@@ -97,3 +83,35 @@ macro_rules! shmget_id {
     });
 }
 
+#[macro_export]
+macro_rules! shmdt {
+    ($addr: expr) => ({
+        match unsafe {
+            shm::ffi::shmdt (
+                $addr
+            )
+        } {
+            -1 => false,
+            _ => true,
+        }
+    });
+}
+
+#[macro_export]
+macro_rules! shmctl {
+    ($id: expr, $cmd: expr) => ({
+        shmctl!($id, $cmd, std::ptr::null_mut())
+    });
+    ($id: expr, $cmd: expr, $info: expr) => ({
+        match unsafe {
+            shm::ffi::shmctl (
+                $id,
+                $cmd as i32,
+                $info
+            )
+        } {
+            -1 => false,
+            _ => true,
+        }
+    });
+}

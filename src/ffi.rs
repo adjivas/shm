@@ -49,8 +49,33 @@ pub const TOK_PROJ_ID: u32 = 0;
 
 #[cfg(any(unix))]
 extern "C" {
-  pub fn ftok(path: *mut i8, id: i32) -> i64;
-  pub fn shmget(key: i32, size: u64, flag: i32) -> i32;
-  pub fn shmat(id: i32, addr: *mut i32, flag: i32) -> *mut i32;
-  pub fn shmdt(addr: *const i32) -> i32;
+    pub fn ftok(path: *mut i8, id: i32) -> i64;
+    pub fn shmget(key: i32, size: u64, flag: i32) -> i32;
+    pub fn shmat(id: i32, addr: *mut i32, flag: i32) -> *mut i32;
+    pub fn shmdt(addr: *const i32) -> i32;
+    pub fn shmctl(id: i32, cmd: i32, info: *mut ShmidDs) -> i32;
+}
+
+#[repr(C)]
+pub struct ShmidDs {
+    pub shm_perm: IpcPerm, // operation perms.
+    pub shm_segsz: i32, // size of segment (bytes).
+    pub shm_atime: i64, // last attach time.
+    pub shm_dtime: i64, // last detach time.
+    pub shm_ctime: i64, // last change time.
+    pub shm_cpid: u16, // pid of creator.
+    pub shm_lpid: u16, // pid of last operator.
+    pub shm_nattch: i16, // no. of current attaches.
+    pub shm_npages: u16, // size of segment (pages).
+}
+
+#[repr(C)]
+pub struct IpcPerm {
+   pub uid: i64, // owner's user id.
+   pub gid: i64, // owner's group id.
+   pub cuid: i64, // creator's user id.
+   pub cgid: i64, // creator's group id.
+   pub mode: u16, // access modes.
+   pub seq: u16, // slot usage sequence number.
+   pub key: i64, // key.
 }

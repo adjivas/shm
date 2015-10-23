@@ -7,23 +7,16 @@
 
 #[macro_use] extern crate shm;
 
-type Map = [i32; 10];
+type Example = [i32; 100];
 
 fn main () {
-    let size:usize = std::mem::size_of::<Map>();
+    let size:usize = std::mem::size_of::<Example>();
 
     if let Some(key) = ftok!() {
         if let Some(id) = shmget_id!(key, size) {
             if let Some(addr) = shmat!(id) {
-                let map: &mut Map = unsafe {
-                    std::mem::transmute(addr)
-                };
-
-                for x in map.iter() {
-                    print!("{} ", x);
-                }
-                println!("");
                 shmdt!(addr);
+                println!("work: {}", shmctl!(id, shm::ffi::Ipc::RMID));
             }
         }
     }
