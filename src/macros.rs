@@ -10,25 +10,28 @@
 
 #[macro_export]
 macro_rules! ftok {
-  () => ({
-    ftok!(shm::ffi::TOK_PATHNAME)
-  });
-  ($pathname: expr) => ({
-    match unsafe {
-        shm::ffi::ftok (
-            $pathname.as_ptr() as *mut i8,
-            shm::ffi::TOK_PROJ_ID as i32
-        )
-    } {
-        -1 => None,
-        key => Some(key as u64),
-    }
-  });
+    () => ({
+        extern crate shm;
+        ftok!(shm::ffi::TOK_PATHNAME)
+    });
+    ($pathname: expr) => ({
+        extern crate shm;
+        match unsafe {
+            shm::ffi::ftok (
+                $pathname.as_ptr() as *mut i8,
+                shm::ffi::TOK_PROJ_ID as i32
+            )
+        } {
+            -1 => None,
+            key => Some(key as u64),
+        }
+    });
 }
 
 #[macro_export]
 macro_rules! shmget {
     ($key: expr, $flag: expr, $size: expr) => ({
+        extern crate shm;
         match unsafe {
             shm::ffi::shmget (
                 $key as i32,
@@ -45,12 +48,14 @@ macro_rules! shmget {
 #[macro_export]
 macro_rules! shmat {
     ($id: expr) => ({
+        extern crate std;
         shmat!($id, std::ptr::null_mut(), 0)
     });
     ($id: expr, $addr: expr) => ({
         shmat!($id, $addr, 0)
     });
     ($id: expr, $addr: expr, $flag: expr) => ({
+        extern crate shm;
         match unsafe {
             shm::ffi::shmat (
                 $id as i32,
@@ -86,6 +91,7 @@ macro_rules! shmget_id {
 #[macro_export]
 macro_rules! shmdt {
     ($addr: expr) => ({
+        extern crate shm;
         match unsafe {
             shm::ffi::shmdt (
                 $addr
@@ -100,9 +106,11 @@ macro_rules! shmdt {
 #[macro_export]
 macro_rules! shmctl {
     ($id: expr, $cmd: expr) => ({
+        extern crate std;
         shmctl!($id, $cmd, std::ptr::null_mut())
     });
     ($id: expr, $cmd: expr, $info: expr) => ({
+        extern crate shm;
         match unsafe {
             shm::ffi::shmctl (
                 $id,
