@@ -28,6 +28,9 @@ macro_rules! ftok {
     });
 }
 
+/// The `shmget` macro returns the id of
+/// a memory segment.
+
 #[macro_export]
 macro_rules! shmget {
     ($key: expr, $flag: expr, $size: expr) => ({
@@ -44,6 +47,30 @@ macro_rules! shmget {
         }
     });
 }
+
+/// The `shmget_id` returns and creates or gets
+/// the memory segment.
+
+#[macro_export]
+macro_rules! shmget_id {
+    ($key: expr, $size: expr) => ({
+        match shmget! (
+            $key,
+            0o0666 | shm::ffi::Ipc::CREAT as i32
+                   | shm::ffi::Ipc::EXCL as i32,
+            $size
+        ) {
+            Some(id) => Some(id),
+            None => shmget! (
+                $key,
+                0o0666,
+                $size
+            ),
+        }
+    });
+}
+
+/// The `shmat` macro returns the fist memory address.
 
 #[macro_export]
 macro_rules! shmat {
@@ -69,24 +96,8 @@ macro_rules! shmat {
     });
 }
 
-#[macro_export]
-macro_rules! shmget_id {
-    ($key: expr, $size: expr) => ({
-        match shmget! (
-            $key,
-            0o0666 | shm::ffi::Ipc::CREAT as i32
-                   | shm::ffi::Ipc::EXCL as i32,
-            $size
-        ) {
-            Some(id) => Some(id),
-            None => shmget! (
-                $key,
-                0o0666,
-                $size
-            ),
-        }
-    });
-}
+/// The `shmdt` macro detaches the shared memory
+/// from the memory address.
 
 #[macro_export]
 macro_rules! shmdt {
@@ -102,6 +113,8 @@ macro_rules! shmdt {
         }
     });
 }
+
+/// The `shmctl` sets a information on the segment.
 
 #[macro_export]
 macro_rules! shmctl {
