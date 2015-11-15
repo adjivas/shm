@@ -1,7 +1,8 @@
 # Shm-XSI
 
-[![Build Status](https://travis-ci.org/adjivas/shm.svg)](https://travis-ci.org/adjivas/shm)
 [![GPLv3 License](http://img.shields.io/badge/license-GPLv3-blue.svg)](https://www.gnu.org/copyleft/gpl.html)
+[![Build Status](https://travis-ci.org/adjivas/shm.svg)](https://travis-ci.org/adjivas/shm)
+[![Circle CI](https://circleci.com/gh/adjivas/shm/tree/master.svg?style=svg)](https://circleci.com/gh/adjivas/shm/tree/master)
 
 #### How to build:
 ```shell

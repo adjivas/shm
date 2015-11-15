@@ -21,6 +21,7 @@ env:
 
 script:
   - cargo build
+  - cargo test
 
 addons:
   apt:
