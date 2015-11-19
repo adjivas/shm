@@ -1,6 +1,6 @@
 # Shm-XSI
 
-[![docs-badge][]][docs] [![license-badge][]][license] [![travis-badge][]][travis] [![circle-badge][]][circle]
+[![Crate][crate-badge]][crate] [![docs-badge][]][docs] [![license-badge][]][license] [![travis-badge][]][travis] [![circle-badge][]][circle]
 
 #### How to build:
 ```shell
@@ -24,7 +24,10 @@ cargo run --example box
 |__ Cargo.toml
 |__ LICENSE
 |__ README.md
-|__ example/box.rs
+|__ example
+|   |__ map.rs
+|   |__ box.rs
+|   \__ clr.rs
 \__ src
     |__ ffi.rs
     |__ lib.rs
@@ -34,6 +37,8 @@ cargo run --example box
 #### License:
 *shm*'s code in this repo uses the [GNU GPL v3](http://www.gnu.org/licenses/gpl-3.0.html) [license][license].
 
+[crate-badge]: https://img.shields.io/badge/crates.io-v0.1.0-orange.svg?style=flat-square
+[crate]: https://crates.io/crates/shm
 [docs-badge]: https://img.shields.io/badge/API-docs-blue.svg?style=flat-square
 [docs]: http://adjivas.github.io/shm/shm
 [license-badge]: http://img.shields.io/badge/license-GPLv3-blue.svg?style=flat-square
