@@ -6,5 +6,5 @@ description = "SHM Share memory"
 license = "GPL-3.0"
 documentation = "http://adjivas.github.io/shm/shm"
 repository = "https://github.com/adjivas/shm"
-readme = "https://raw.githubusercontent.com/adjivas/shm/master/README.md"
-keywords = ["XSI", "segment", "shared memory"]
+readme = "README.md"
+keywords = ["XSI", "shared", "memory", "segment"]
